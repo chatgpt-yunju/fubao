@@ -1,0 +1,37 @@
+name: Build and Deploy to GitHub Pages
+
+# 触发条件：推送到 main 分支时执行
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest # 用 Ubuntu 服务器执行
+    steps:
+      # 1. 拉取 GitHub 仓库代码
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. 安装 Node.js（匹配你的项目版本，比如 18）
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm' # 缓存依赖，加速构建
+
+      # 3. 安装依赖
+      - name: Install dependencies
+        run: npm install
+
+      # 4. 执行 npm run build 打包（关键步骤）
+      - name: Build project
+        run: npm run build # Vite/CRA 都可用，自动生成 dist/build
+
+      # 5. 部署到 GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GH_TOKEN }} # 用之前配置的令牌授权
+          publish_dir: ./dist # Vite 填 dist，CRA 填 build
+          publish_branch: gh-pages # 部署到 gh-pages 分支
