@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 3000;
 
 // 中间件配置
 app.use(cors({
-  origin: ['http://localhost:8080', 'http://localhost:5173', 'https://hunjian.yunjunet.cn'],
+  origin: ['http://localhost:8080', 'http://localhost:5173', 'https://hunjian.yunjunet.cn', 'http://fubao.yunjunet.cn', 'https://fubao.yunjunet.cn'],
   credentials: true
 }));
 
@@ -22,10 +22,10 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    secure: process.env.NODE_ENV === 'production',
+    secure: false, // HTTP 环境下必须为 false
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 天
     httpOnly: true,
-    sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax'
+    sameSite: 'lax'
   }
 }));
 
