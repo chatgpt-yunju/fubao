@@ -6,6 +6,12 @@ class SSOClient {
     this.appSecret = process.env.SSO_APP_SECRET;
     this.baseUrl = process.env.SSO_BASE_URL;
     this.redirectUri = process.env.SSO_REDIRECT_URI;
+    console.log('SSOClient initialized:', {
+      appId: this.appId,
+      appSecretLength: this.appSecret?.length,
+      baseUrl: this.baseUrl,
+      redirectUri: this.redirectUri
+    });
   }
 
   // 生成授权 URL
@@ -21,14 +27,25 @@ class SSOClient {
   // 用 code 换取 token
   async getToken(code) {
     try {
-      const response = await axios.post(`${this.baseUrl}/token`, {
+      const payload = {
         app_id: this.appId,
         app_secret: this.appSecret,
         code: code
+      };
+      console.log('SSO getToken request:', {
+        url: `${this.baseUrl}/token`,
+        payload: { ...payload, app_secret: '***' }
       });
+      const response = await axios.post(`${this.baseUrl}/token`, payload);
+      console.log('SSO getToken success:', response.data);
       return response.data;
     } catch (error) {
       console.error('SSO getToken error:', error.response?.data || error.message);
+      console.error('SSO getToken request details:', {
+        app_id: this.appId,
+        app_secret_length: this.appSecret?.length,
+        code: code
+      });
       throw new Error(error.response?.data?.message || '获取 token 失败');
     }
   }
