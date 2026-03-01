@@ -13,3 +13,10 @@ coverage/
 .npm/
 .eslintcache
 .parcel-cache/
+
+# 敏感配置文件
+ecosystem.config.js
+backend/.env
+*.sql
+logs/
+uploads/

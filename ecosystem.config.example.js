@@ -11,11 +11,11 @@ module.exports = {
       env: {
         NODE_ENV: 'production',
         PORT: 3001,
-        SSO_APP_ID: 'app_72675e4cc28cae12',
-        SSO_APP_SECRET: 'b51324eaac14281d9c506249d1cd35edc6f74b99cb39db47ca17c5c4c48ce920',
-        SSO_BASE_URL: 'http://avm.yunjunet.cn/api/sso',
-        SSO_REDIRECT_URI: 'http://fubao.yunjunet.cn/auth/callback',
-        SESSION_SECRET: 'fubao-secret-key-production-2026'
+        SSO_APP_ID: 'your_app_id_here',
+        SSO_APP_SECRET: 'your_app_secret_here',
+        SSO_BASE_URL: 'http://your-sso-server.com/api/sso',
+        SSO_REDIRECT_URI: 'http://your-domain.com/auth/callback',
+        SESSION_SECRET: 'change-this-secret-key'
       },
       error_file: './logs/fubao-backend-error.log',
       out_file: './logs/fubao-backend-out.log',
